@@ -1,15 +1,32 @@
-// import { Stack } from "expo-router";
-import {
-  FlatList,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { ClerkProvider } from "@clerk/expo";
+import { tokenCache } from "@clerk/expo/token-cache";
+import { Slot } from "expo-router";
 import "../global.css";
 
-const properties = [
+const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
+
+if (!publishableKey) {
+  throw new Error("Add your Clerk Publishable Key to the .env file");
+}
+
+export default function RootLayout() {
+  return (
+    <ClerkProvider publishableKey={publishableKey} tokenCache={tokenCache}>
+      <Slot />
+    </ClerkProvider>
+  );
+}
+
+// import { Stack } from "expo-router";
+/* import { */
+/*   FlatList, */
+/*   Text, */
+/*   TextInput, */
+/*   TouchableOpacity, */
+/*   View, */
+/* } from "react-native"; */
+/* import { SafeAreaView } from "react-native-safe-area-context"; */
+/* const properties = [
   {
     id: "1",
     title: "Modern Villa",
@@ -63,7 +80,7 @@ const properties = [
 export default function RootLayout() {
   return (
     <SafeAreaView>
-      <View style={{ padding: 16 }}>
+      <View className="p-4">
         <Text>Hello World</Text>
 
         <TextInput
@@ -106,4 +123,4 @@ export default function RootLayout() {
       />
     </SafeAreaView>
   );
-}
+} */
